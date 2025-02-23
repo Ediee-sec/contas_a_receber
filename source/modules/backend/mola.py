@@ -79,7 +79,9 @@ class Mola:
             self.driver.get(self.portal)
             time.sleep(6)
             self.driver.find_element('xpath','//*[@id="email"]').send_keys(self.username)
+            time.sleep(2)
             self.driver.find_element('xpath','//*[@id="password"]').send_keys(self.password)
+            time.sleep(2)
             self.driver.find_element('xpath','//*[@id="root"]/div/div[2]/form/div[3]/button').click()
             time.sleep(3)
             logger.info("Login realizado com sucesso")
@@ -103,7 +105,7 @@ class Mola:
                 EC.presence_of_element_located((By.XPATH, "//button[@class='ant-btn ant-btn-default']"))
             )
             element.click()
-            
+            time.sleep(2)
             element_popup = WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/div/a/span/span'))
             )
