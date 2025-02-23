@@ -82,6 +82,9 @@ class Mola:
             self.driver = webdriver.Chrome(options=self.options)
             self.driver.get(self.portal)
             time.sleep(3)
+            screenshot_path = "/tmp/screenshot.png"  # Railway permite escrever em /tmp
+            self.driver.save_screenshot(screenshot_path)
+            logger.info(f"Print da tela salvo em: {screenshot_path}")
             self.driver.find_element('xpath','//*[@id="email"]').send_keys(self.username)
             self.driver.find_element('xpath','//*[@id="password"]').send_keys(self.password)
             self.driver.find_element('xpath','//*[@id="root"]/div/div[2]/form/div[3]/button').click()
