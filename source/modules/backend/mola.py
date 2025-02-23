@@ -51,8 +51,8 @@ class Mola:
         # self.password = self.config['credentials']['password']
         
         # Para executar no docker
-        self.username = os.getenv['USR']
-        self.password = os.getenv['PWD']
+        self.username = os.getenv('USER')
+        self.password = os.getenv('PWD')
         
         self.contacts = ListContacts(file).list_contacts()
         self.message = message

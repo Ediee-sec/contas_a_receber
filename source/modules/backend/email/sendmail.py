@@ -20,9 +20,9 @@ class Mail:
         # self.server = smtplib.SMTP(self.config['gmail']['server'], self.config['gmail']['port'])
         
         # Para executar no docker
-        self.email = os.getenv['EMAIL']
-        self.password = os.getenv['KEY']
-        self.server = smtplib.SMTP(os.getenv['SERVER'], os.getenv['PORT'])
+        self.email = os.getenv('EMAIL')
+        self.password = os.getenv('KEY')
+        self.server = smtplib.SMTP(os.getenv('SERVER'), os.getenv('PORT'))
         self.subject = 'Resultado do envio de menssagens no Mola'
     
     def create_template(self):
