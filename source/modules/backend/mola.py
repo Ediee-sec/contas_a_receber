@@ -44,14 +44,10 @@ class Mola:
         self.options = webdriver.ChromeOptions()
         self.options.add_argument('--ignore-certificate-errors') # Ignora erros de certificado SSL/TLS - útil para sites com certificados auto-assinados
         self.options.add_argument('--incognito') # Inicia o navegador em modo anônimo/privativo
-        self.options.add_argument("--temp-profile") # Cria um perfil temporário para cada sessão
         self.options.add_argument('--headless') # Executa o Chrome em modo headless (sem interface gráfica)
         self.options.add_argument('--no-sandbox') # Necessário para executar como root em ambientes containerizados
         self.options.add_argument('--disable-gpu') # Desativa a aceleração por hardware GPU
         self.options.add_argument('--disable-notifications') # Desativa as notificações do navegador
-        self.options.add_argument('--disable-software-rasterizer') # Desativa o rasterizador de software
-        self.options.add_argument('--single-process') # Força o Chrome a usar um único processo
-        self.options.add_argument('--disable-dev-shm-usage') # Evita problemas em ambientes com pouca memória compartilhada
         self.options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
         self.driver = None
         self.portal = 'https://mola.kinbox.com.br/user/login'
