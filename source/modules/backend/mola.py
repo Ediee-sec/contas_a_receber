@@ -48,6 +48,8 @@ class Mola:
         self.options.add_argument('--no-sandbox') # Necessário para executar como root em ambientes containerizados
         self.options.add_argument('--disable-gpu') # Desativa a aceleração por hardware GPU
         self.options.add_argument('--disable-notifications') # Desativa as notificações do navegador
+        self.options.add_argument('--window-size=1920x1080') # Define o tamanho da janela do navegador
+        self.options.add_argument('--start-maximized') # Inicia o navegador maximizado
         self.options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
         self.driver = None
         self.portal = 'https://mola.kinbox.com.br/user/login'
@@ -133,8 +135,6 @@ class Mola:
             self.driver.find_element('xpath',"//textarea[@placeholder='Shift + Enter para nova linha. ']").send_keys(f'Olá {name} tudo bem?\n\n {self.message}')
             self.driver.find_element('xpath',"//button[@class='ant-btn ant-btn-primary']").click()
             time.sleep(10)
-            
-            
             
             self.status = pd.concat([self.status, pd.DataFrame({'Nome': [name], 'Telefone': [number], 'Status': ['Sucesso']})], ignore_index=True)
             logger.info(f'Mensagem enviada para {name} com sucesso')
