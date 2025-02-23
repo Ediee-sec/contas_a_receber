@@ -59,7 +59,7 @@ class Mola:
         # self.password = self.config['credentials']['password']
         
         # Para executar no docker
-        self.username = os.getenv('USER')
+        self.username = os.getenv('USR')
         self.password = os.getenv('PWD')
         
         self.contacts = ListContacts(file).list_contacts()
@@ -84,11 +84,11 @@ class Mola:
             time.sleep(6)
             logger.info(f'{self.username}, {self.password}')
             self.driver.find_element('xpath','//*[@id="email"]').send_keys(self.username)
-            screenshot_path = "/tmp/screenshot.png" 
-            self.driver.save_screenshot(screenshot_path)
             self.driver.find_element('xpath','//*[@id="password"]').send_keys(self.password)
             self.driver.find_element('xpath','//*[@id="root"]/div/div[2]/form/div[3]/button').click()
             time.sleep(3)
+            screenshot_path = "/tmp/screenshot.png" 
+            self.driver.save_screenshot(screenshot_path)
             logger.info("Login realizado com sucesso")
         except Exception as e:
             logger.error(f"Erro ao realizar o login: {e}")
