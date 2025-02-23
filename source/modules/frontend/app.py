@@ -45,7 +45,7 @@ def upload():
     email = request.form.get('email')
     message = request.form.get('message')
     
-    raise email
+    print(email, message)
     
     task_id = str(time.time())
     

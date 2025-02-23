@@ -14,6 +14,11 @@ from selenium.common.exceptions import NoSuchElementException
 import time
 import configparser
 import pandas as pd
+import logging
+
+logging.basicConfig(level=logging.INFO,
+                   format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 class ListContacts:
     def __init__(self, file) -> None:
@@ -26,6 +31,7 @@ class ListContacts:
         
         Returns: pd.DataFrame
         """
+        logger.info("Filtrando contatos validos no dataframe")
         df_filtrado = self.__df.loc[self.__df["Validação"] == "OK"]
         return df_filtrado
     
@@ -78,7 +84,7 @@ class Mola:
             self.driver.find_element('xpath','//*[@id="password"]').send_keys(self.password)
             self.driver.find_element('xpath','//*[@id="root"]/div/div[2]/form/div[3]/button').click()
             time.sleep(3)
-            print('Login realizado com sucesso')
+            logger.info("Login realizado com sucesso")
         except Exception as e:
             raise print(e)
     
