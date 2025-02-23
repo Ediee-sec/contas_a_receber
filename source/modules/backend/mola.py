@@ -82,7 +82,7 @@ class Mola:
             self.driver = webdriver.Chrome(options=self.options)
             self.driver.get(self.portal)
             time.sleep(6)
-            logger.info(self.username, self.password)
+            logger.info(f'{self.username}, {self.password}')
             self.driver.find_element('xpath','//*[@id="email"]').send_keys(self.username)
             screenshot_path = "/tmp/screenshot.png" 
             self.driver.save_screenshot(screenshot_path)
