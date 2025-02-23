@@ -49,7 +49,14 @@ class Mola:
         self.options.add_argument('--disable-gpu') # Desativa a aceleração por hardware GPU
         self.options.add_argument('--disable-notifications') # Desativa as notificações do navegador
         self.options.add_argument('--window-size=1920x1080') # Define o tamanho da janela do navegador
+        self.options.add_argument('--disable-dev-shm-usage') # Usa /tmp em vez de /dev/shm
+        self.options.add_argument('--disable-software-rasterizer') # Evita uso de software render
+        self.options.add_argument('--disable-crash-reporter') # Evita envio de logs de crash
+        self.options.add_argument('--disable-logging') # Reduz logs
+        self.options.add_argument('--memory-pressure-off') # Desativa a verificação de pressão de memória
+        self.options.add_argument('--enable-low-end-device-mode') # Ativa o modo de dispositivo de baixo desempenho
         self.options.add_argument('--start-maximized') # Inicia o navegador maximizado
+        
         self.options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
         self.driver = None
         self.portal = 'https://mola.kinbox.com.br/user/login'
