@@ -43,10 +43,17 @@ class Mola:
         self.options.add_argument('--disable-notifications')
         self.driver = None
         self.portal = 'https://mola.kinbox.com.br/user/login'
-        self.config = configparser.ConfigParser()
-        self.config.read(os.path.join(Path(__file__).resolve().parents[3], 'config\\access.ini'))
-        self.username = self.config['credentials']['username']
-        self.password = self.config['credentials']['password']
+        
+        # Para excutar localmente
+        # self.config = configparser.ConfigParser()
+        # self.config.read(os.path.join(Path(__file__).resolve().parents[3], 'config\\access.ini'))
+        # self.username = self.config['credentials']['username'] 
+        # self.password = self.config['credentials']['password']
+        
+        # Para executar no docker
+        self.username = os.getenv['USR']
+        self.password = os.getenv['PWD']
+        
         self.contacts = ListContacts(file).list_contacts()
         self.message = message
         self.email = email
