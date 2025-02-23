@@ -183,7 +183,7 @@ class Mola:
             except Exception as e:
                 logger.error(f'Erro ao enviar email: {e}')
         except Exception as e:
-            pass
+            logger.error(f'Erro ao executar o fluxo: {e}')
         finally:
             self.driver.close()
             logger.info('Driver fechado com sucesso')
