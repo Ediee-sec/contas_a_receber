@@ -87,8 +87,6 @@ class Mola:
             self.driver.find_element('xpath','//*[@id="password"]').send_keys(self.password)
             self.driver.find_element('xpath','//*[@id="root"]/div/div[2]/form/div[3]/button').click()
             time.sleep(3)
-            screenshot_path = "/tmp/screenshot.png" 
-            self.driver.save_screenshot(screenshot_path)
             logger.info("Login realizado com sucesso")
         except Exception as e:
             logger.error(f"Erro ao realizar o login: {e}")
@@ -103,13 +101,17 @@ class Mola:
         """
         time.sleep(3)
         try:
+            logger.info("Desconectando sessao")
             element = WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.XPATH, '/html/body/div[3]/div/div[2]/div/div[2]/div/div/div[2]/div/button'))
             )
             element.click()
             time.sleep(3)
+            screenshot_path = "/tmp/screenshot.png" 
+            self.driver.save_screenshot(screenshot_path)
+            logger.info("Sessao desconectada com sucesso")
         except TimeoutException:
-            pass
+            logger.error("Elemento nao encontrado")
         
     def send_message(self, number, name):
         """
@@ -121,6 +123,7 @@ class Mola:
         Preenche o campo de mensagem com um texto padrao, incluindo o nome do contato.
         """
         try:
+            logger.info(f"Enviando mensagem para {number}")
             self.driver.find_element('xpath','//*[@id="root"]/div/div[1]/div/div[2]/div/div[1]/div[1]/div/div[1]/div/div/div[2]/button').click()
             time.sleep(2)
             self.driver.find_element('xpath','//*[@id="workspacePlatformId"]').send_keys('ATIVO')
@@ -130,8 +133,10 @@ class Mola:
             self.driver.find_element('xpath','/html/body/div[6]/div/div[2]/div/div[2]/div[3]/div/button').click()
             
             self.status = pd.concat([self.status, pd.DataFrame({'Nome': [name], 'Telefone': [number], 'Status': ['Sucesso']})], ignore_index=True)
+            logger.info(f'Mensagem enviada para {name} com sucesso')
         except Exception as e:
             self.status = pd.concat([self.status, pd.DataFrame({'Nome': [name], 'Telefone': [number], 'Status': ['Erro']})], ignore_index=True)
+            logger.error(f'Erro ao enviar mensagem para {name}: {e}')
         
     def scroll_all_contacts(self):
         """
