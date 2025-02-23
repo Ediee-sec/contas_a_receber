@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload XLSX</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <h1>Upload de Arquivo XLSX</h1>
+            <p>Envie o arquivo com os contatos</p>
+        </header>
+
+        <main class="main-content">
+            <div class="form-container">
+                <form id="uploadForm" onsubmit="return handleSubmit(event)">
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-file-excel"></i>
+                            Arquivo XLSX
+                        </label>
+                        <div class="file-input-container">
+                            <label class="file-input-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                Escolher Arquivo
+                                <input type="file" 
+                                       id="file" 
+                                       class="file-input" 
+                                       accept=".xlsx"
+                                       onchange="updateFileName(this)">
+                            </label>
+                        </div>
+                        <div id="fileName" class="file-name"></div>
+                        <div id="fileError" class="error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-envelope"></i>
+                            E-mail
+                        </label>
+                        <input type="email" 
+                               id="email" 
+                               required 
+                               placeholder="Seu melhor e-mail">
+                        <div id="emailError" class="error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-comment-alt"></i>
+                            Mensagem
+                        </label>
+                        <textarea id="message" 
+                                  required 
+                                  placeholder="Digite sua mensagem aqui..."></textarea>
+                        <div id="messageError" class="error"></div>
+                    </div>
+
+                    <button type="submit" class="submit-button">
+                        <i class="fas fa-paper-plane"></i>
+                        Enviar Arquivo
+                    </button>
+                </form>
+
+                <div id="timer">
+                    <i class="fas fa-clock"></i>
+                    <span class="timer-text">Tempo de processamento: 00:00</span>
+                </div>
+                <div id="response" class="response"></div>
+            </div>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
