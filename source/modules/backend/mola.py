@@ -129,9 +129,13 @@ class Mola:
             self.driver.find_element('xpath','//*[@id="root"]/div/div[1]/div/div[2]/div/div[1]/div[1]/div/div[1]/div/div/div[2]/button').click()
             time.sleep(2)
             self.driver.find_element('xpath','//*[@id="workspacePlatformId"]').send_keys('ATIVO')
+            time.sleep(2)
             self.driver.find_element('xpath','//*[@id="workspacePlatformId"]').send_keys(Keys.ENTER)
+            time.sleep(2)
             self.driver.find_element('xpath','//*[@id="phone"]').send_keys(number)
+            time.sleep(2)
             self.driver.find_element('xpath',"//textarea[@placeholder='Shift + Enter para nova linha. ']").send_keys(f'Olá {name} tudo bem?\n\n {self.message}')
+            time.sleep(2)
             self.driver.find_element('xpath',"//button[@class='ant-btn ant-btn-primary']").click()
             time.sleep(10)
             
