@@ -124,8 +124,8 @@ class Mola:
         try:
             time.sleep(3)
             logger.info(f"Enviando mensagem para {number}")
-            # screenshot_path = "/tmp/screenshot.png" 
-            # self.driver.save_screenshot(screenshot_path)
+            screenshot_path = "/tmp/screenshot.png" 
+            self.driver.save_screenshot(screenshot_path)
             self.driver.find_element('xpath','//*[@id="root"]/div/div[1]/div/div[2]/div/div[1]/div[1]/div/div[1]/div/div/div[2]/button').click()
             time.sleep(2)
             self.driver.find_element('xpath','//*[@id="workspacePlatformId"]').send_keys('ATIVO')
@@ -175,7 +175,7 @@ class Mola:
             except Exception as e:
                 logger.error(f'Erro ao enviar email: {e}')
         except Exception as e:
-            logger.error(f'Erro ao executar o fluxo: {e}')
+            pass
         finally:
             self.driver.close()
             logger.info('Driver fechado com sucesso')
