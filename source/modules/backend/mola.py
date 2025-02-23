@@ -44,6 +44,7 @@ class Mola:
         self.options = webdriver.ChromeOptions()
         self.options.add_argument('--ignore-certificate-errors')
         self.options.add_argument('--incognito')
+        self.options.add_argument("--temp-profile")
         #self.options.add_argument('--headless')
         self.options.add_argument('--no-sandbox')
         self.options.add_argument('--disable-gpu')
@@ -172,8 +173,7 @@ class Mola:
         except Exception as e:
             print(e)
         finally:
-            self.disconnect_session()
-            self.driver.close()
+            self.driver.quit()
 
         
 # job = Mola('C:\\Users\\emers\\OneDrive\\Documentos\\15.xlsx', 'Mensagem de teste', 'emersonrox8@gmail.com')
