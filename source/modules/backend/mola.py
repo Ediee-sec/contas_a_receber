@@ -70,13 +70,17 @@ class Mola:
         configurados no arquivo access.ini.
         Clica no botao de login.
         """
-        self.driver = webdriver.Chrome(options=self.options)
-        self.driver.get(self.portal)
-        time.sleep(3)
-        self.driver.find_element('xpath','//*[@id="email"]').send_keys(self.username)
-        self.driver.find_element('xpath','//*[@id="password"]').send_keys(self.password)
-        self.driver.find_element('xpath','//*[@id="root"]/div/div[2]/form/div[3]/button').click()
-        time.sleep(3)
+        try:
+            self.driver = webdriver.Chrome(options=self.options)
+            self.driver.get(self.portal)
+            time.sleep(3)
+            self.driver.find_element('xpath','//*[@id="email"]').send_keys(self.username)
+            self.driver.find_element('xpath','//*[@id="password"]').send_keys(self.password)
+            self.driver.find_element('xpath','//*[@id="root"]/div/div[2]/form/div[3]/button').click()
+            time.sleep(3)
+            print('Login realizado com sucesso')
+        except Exception as e:
+            raise print(e)
     
     def disconnect_session(self):
         """
