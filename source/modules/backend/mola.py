@@ -44,19 +44,13 @@ class Mola:
         self.options = webdriver.ChromeOptions()
         self.options.add_argument('--ignore-certificate-errors')
         self.options.add_argument('--incognito')
-        self.options.add_argument('--headless')
+        #self.options.add_argument('--headless')
         self.options.add_argument('--no-sandbox')
         self.options.add_argument('--disable-gpu')
         self.options.add_argument('--disable-notifications')
         self.options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
         self.driver = None
         self.portal = 'https://mola.kinbox.com.br/user/login'
-        
-        # Para excutar localmente
-        # self.config = configparser.ConfigParser()
-        # self.config.read(os.path.join(Path(__file__).resolve().parents[3], 'config\\access.ini'))
-        # self.username = self.config['credentials']['username'] 
-        # self.password = self.config['credentials']['password']
         
         # Para executar no docker
         self.username = os.getenv('USR')
@@ -106,6 +100,12 @@ class Mola:
                 EC.presence_of_element_located((By.XPATH, '/html/body/div[3]/div/div[2]/div/div[2]/div/div/div[2]/div/button'))
             )
             element.click()
+            
+            element_popup = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/div/a/span/span'))
+            )
+            element_popup.click()
+            
             time.sleep(3)
             logger.info("Sessao desconectada com sucesso")
         except TimeoutException:
@@ -120,17 +120,19 @@ class Mola:
         Preenche o campo de telefone com o numero especificado.
         Preenche o campo de mensagem com um texto padrao, incluindo o nome do contato.
         """
+        screenshot_path = "/tmp/screenshot.png" 
+        self.driver.save_screenshot(screenshot_path)
         try:
+            time.sleep(3)
             logger.info(f"Enviando mensagem para {number}")
             self.driver.find_element('xpath','//*[@id="root"]/div/div[1]/div/div[2]/div/div[1]/div[1]/div/div[1]/div/div/div[2]/button').click()
-            screenshot_path = "/tmp/screenshot.png" 
-            self.driver.save_screenshot(screenshot_path)
             time.sleep(2)
             self.driver.find_element('xpath','//*[@id="workspacePlatformId"]').send_keys('ATIVO')
             self.driver.find_element('xpath','//*[@id="workspacePlatformId"]').send_keys(Keys.ENTER)
             self.driver.find_element('xpath','//*[@id="phone"]').send_keys(number)
             self.driver.find_element('xpath','/html/body/div[6]/div/div[2]/div/div[2]/div[2]/div/form/div[4]/div/div/div/div/div/div/div/div/form/textarea').send_keys(f'Olá {name} tudo bem?\n\n {self.message}')
             self.driver.find_element('xpath','/html/body/div[6]/div/div[2]/div/div[2]/div[3]/div/button').click()
+            time.sleep(3)
             
             self.status = pd.concat([self.status, pd.DataFrame({'Nome': [name], 'Telefone': [number], 'Status': ['Sucesso']})], ignore_index=True)
             logger.info(f'Mensagem enviada para {name} com sucesso')
@@ -174,5 +176,5 @@ class Mola:
             self.driver.close()
 
         
-# job = Mola('C:\\Users\\emers\\OneDrive\\Documentos\\15.xlsx', 'Mensagem de teste', 'emersonrox8@gmail.com')
-# job.flow()
+job = Mola('C:\\Users\\emers\\OneDrive\\Documentos\\15.xlsx', 'Mensagem de teste', 'emersonrox8@gmail.com')
+job.flow()
