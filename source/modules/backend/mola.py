@@ -85,8 +85,8 @@ class Mola:
             self.driver.find_element('xpath','//*[@id="root"]/div/div[2]/form/div[3]/button').click()
             time.sleep(3)
             logger.info("Login realizado com sucesso")
-            screenshot_path = "/tmp/screenshot.png" 
-            self.driver.save_screenshot(screenshot_path)
+            # screenshot_path = "/tmp/screenshot.png" 
+            # self.driver.save_screenshot(screenshot_path)
         except Exception as e:
             logger.error(f"Erro ao realizar o login: {e}")
     
