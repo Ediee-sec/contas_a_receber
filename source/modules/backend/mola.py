@@ -124,7 +124,7 @@ class Mola:
         Preenche o campo de mensagem com um texto padrao, incluindo o nome do contato.
         """
         try:
-            time.sleep(3)
+            time.sleep(10)
             logger.info(f"Enviando mensagem para {number}")
             self.driver.find_element('xpath','//*[@id="root"]/div/div[1]/div/div[2]/div/div[1]/div[1]/div/div[1]/div/div/div[2]/button').click()
             time.sleep(2)
@@ -137,7 +137,7 @@ class Mola:
             self.driver.find_element('xpath',"//textarea[@placeholder='Shift + Enter para nova linha. ']").send_keys(f'Olá {name} tudo bem?\n\n {self.message}')
             time.sleep(2)
             self.driver.find_element('xpath',"//button[@class='ant-btn ant-btn-primary']").click()
-            time.sleep(10)
+            time.sleep(3)
             
             self.status = pd.concat([self.status, pd.DataFrame({'Nome': [name], 'Telefone': [number], 'Status': ['Sucesso']})], ignore_index=True)
             logger.info(f'Mensagem enviada para {name} com sucesso')
