@@ -128,7 +128,7 @@ class Mola:
         try:
             time.sleep(10)
             logger.info(f"Enviando mensagem para {number}")
-            self.driver.find_element('xpath','//*[@id="root"]/div/div[1]/div/div[2]/div/div[1]/div[1]/div/div[1]/div/div/div[2]/button').click()
+            self.driver.find_element('xpath',"//i[@class='fal fa-edit']").click()
             time.sleep(2)
             self.driver.find_element('xpath','//*[@id="workspacePlatformId"]').send_keys('ATIVO')
             time.sleep(2)
