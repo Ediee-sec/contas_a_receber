@@ -1,1 +1,0 @@
-web: python source/modules/frontend/app.py
