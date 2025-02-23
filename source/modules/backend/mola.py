@@ -120,11 +120,11 @@ class Mola:
         Preenche o campo de telefone com o numero especificado.
         Preenche o campo de mensagem com um texto padrao, incluindo o nome do contato.
         """
-        screenshot_path = "/tmp/screenshot.png" 
-        self.driver.save_screenshot(screenshot_path)
         try:
             time.sleep(3)
             logger.info(f"Enviando mensagem para {number}")
+            screenshot_path = "/tmp/screenshot.png" 
+            self.driver.save_screenshot(screenshot_path)
             self.driver.find_element('xpath','//*[@id="root"]/div/div[1]/div/div[2]/div/div[1]/div[1]/div/div[1]/div/div/div[2]/button').click()
             time.sleep(2)
             self.driver.find_element('xpath','//*[@id="workspacePlatformId"]').send_keys('ATIVO')
