@@ -176,7 +176,7 @@ class Mola:
         except Exception as e:
             print(e)
         finally:
-            self.driver.quit()
+            self.driver.close()
 
         
 # job = Mola('C:\\Users\\emers\\OneDrive\\Documentos\\15.xlsx', 'Mensagem de teste', 'emersonrox8@gmail.com')
