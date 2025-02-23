@@ -132,7 +132,7 @@ class Mola:
             self.driver.find_element('xpath','//*[@id="phone"]').send_keys(number)
             self.driver.find_element('xpath',"//textarea[@placeholder='Shift + Enter para nova linha. ']").send_keys(f'Olá {name} tudo bem?\n\n {self.message}')
             self.driver.find_element('xpath',"//button[@class='ant-btn ant-btn-primary']").click()
-            time.sleep(3)
+            time.sleep(10)
             
             
             
