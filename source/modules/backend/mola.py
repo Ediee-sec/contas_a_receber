@@ -105,11 +105,13 @@ class Mola:
                 EC.presence_of_element_located((By.XPATH, "//button[@class='ant-btn ant-btn-default']"))
             )
             element.click()
+            logger.info(element.text)
             time.sleep(2)
             element_popup = WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/div/a/span/span'))
             )
             element_popup.click()
+            logger.info(element_popup.text)
             
             time.sleep(3)
             logger.info("Sessao desconectada com sucesso")
