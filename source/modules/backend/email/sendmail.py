@@ -12,10 +12,17 @@ class Mail:
         self.df = df
         self.to = to
         self.config = configparser.ConfigParser()
-        self.config.read(os.path.join(Path(__file__).resolve().parents[4], 'config\\access.ini'))
-        self.email = self.config['gmail']['email']
-        self.password = self.config['gmail']['key']
-        self.server = smtplib.SMTP(self.config['gmail']['server'], self.config['gmail']['port'])
+        
+        # Para excutar localmente
+        # self.config.read(os.path.join(Path(__file__).resolve().parents[4], 'config\\access.ini'))
+        # self.email = self.config['gmail']['email']
+        # self.password = self.config['gmail']['key']
+        # self.server = smtplib.SMTP(self.config['gmail']['server'], self.config['gmail']['port'])
+        
+        # Para executar no docker
+        self.email = os.getenv['EMAIL']
+        self.password = os.getenv['KEY']
+        self.server = smtplib.SMTP(os.getenv['SERVER'], os.getenv['PORT'])
         self.subject = 'Resultado do envio de menssagens no Mola'
     
     def create_template(self):
