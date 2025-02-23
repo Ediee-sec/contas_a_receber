@@ -29,7 +29,7 @@ class Mail:
             return f'status-{status.lower()}' if status in ['Sucesso', 'Erro'] else ''
         
         def style():
-            with open(os.path.join(Path(__file__).resolve().parents[3], 'modules\\backend\\email\\template\\static\\style.css'), 'r') as f:
+            with open(os.path.join(Path(__file__).resolve().parents[3], 'modules', 'backend', 'email', 'template', 'static', 'style.css'), 'r') as f:
                 return f.read()
             
         df_styled = df.copy()
