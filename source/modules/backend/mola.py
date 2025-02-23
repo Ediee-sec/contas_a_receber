@@ -82,11 +82,12 @@ class Mola:
             self.driver = webdriver.Chrome(options=self.options)
             self.driver.get(self.portal)
             time.sleep(6)
+            logger.info(self.username, self.password)
             self.driver.find_element('xpath','//*[@id="email"]').send_keys(self.username)
-            self.driver.find_element('xpath','//*[@id="password"]').send_keys(self.password)
-            self.driver.find_element('xpath','//*[@id="root"]/div/div[2]/form/div[3]/button').click()
             screenshot_path = "/tmp/screenshot.png" 
             self.driver.save_screenshot(screenshot_path)
+            self.driver.find_element('xpath','//*[@id="password"]').send_keys(self.password)
+            self.driver.find_element('xpath','//*[@id="root"]/div/div[2]/form/div[3]/button').click()
             time.sleep(3)
             logger.info("Login realizado com sucesso")
         except Exception as e:
