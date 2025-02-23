@@ -10,8 +10,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
+
 from selenium.common.exceptions import NoSuchElementException
 import time
 import configparser
@@ -80,8 +79,7 @@ class Mola:
         Clica no botao de login.
         """
         try:
-            logger.info("Realizando login na plataforma Mola")
-            self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=self.options)
+            self.driver = webdriver.Chrome(options=self.options)
             self.driver.get(self.portal)
             time.sleep(3)
             self.driver.find_element('xpath','//*[@id="email"]').send_keys(self.username)
@@ -90,7 +88,7 @@ class Mola:
             time.sleep(3)
             logger.info("Login realizado com sucesso")
         except Exception as e:
-            logger.error(f"Erro ao realizar login: {e}")
+            logger.error(f"Erro ao realizar o login: {e}")
     
     def disconnect_session(self):
         """
