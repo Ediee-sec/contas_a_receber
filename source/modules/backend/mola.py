@@ -97,6 +97,8 @@ class Mola:
         time.sleep(5)
         try:
             logger.info("Desconectando sessao")
+            screenshot_path = "/tmp/screenshot.png" 
+            self.driver.save_screenshot(screenshot_path)
             element = WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.XPATH, "//button[@class='ant-btn ant-btn-default']"))
             )
@@ -124,8 +126,6 @@ class Mola:
         try:
             time.sleep(3)
             logger.info(f"Enviando mensagem para {number}")
-            screenshot_path = "/tmp/screenshot.png" 
-            self.driver.save_screenshot(screenshot_path)
             self.driver.find_element('xpath','//*[@id="root"]/div/div[1]/div/div[2]/div/div[1]/div[1]/div/div[1]/div/div/div[2]/button').click()
             time.sleep(2)
             self.driver.find_element('xpath','//*[@id="workspacePlatformId"]').send_keys('ATIVO')
