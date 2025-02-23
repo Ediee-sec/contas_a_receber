@@ -81,13 +81,27 @@ class Mola:
         try:
             self.driver = webdriver.Chrome(options=self.options)
             self.driver.get(self.portal)
-            time.sleep(3)
-            screenshot_path = "/tmp/screenshot.png"  # Railway permite escrever em /tmp
+            time.sleep(6)
+            screenshot_path = "/tmp/screenshot.png" 
             self.driver.save_screenshot(screenshot_path)
             logger.info(f"Print da tela salvo em: {screenshot_path}")
-            self.driver.find_element('xpath','//*[@id="email"]').send_keys(self.username)
-            self.driver.find_element('xpath','//*[@id="password"]').send_keys(self.password)
-            self.driver.find_element('xpath','//*[@id="root"]/div/div[2]/form/div[3]/button').click()
+            email_field = self.driver.find_element(By.XPATH, '//*[@id="email"]')
+            if email_field:
+                email_field.send_keys(self.username)
+            else:
+                logger.error("Campo de email não encontrado")
+            time.sleep(2)
+            password_field = self.driver.find_element(By.XPATH, '//*[@id="password"]')
+            if password_field:
+                password_field.send_keys(self.password)
+            else:
+                logger.error("Campo de senha não encontrado")
+            time.sleep(2)
+            login_button = self.driver.find_element(By.XPATH, '//*[@id="root"]/div/div[2]/form/div[3]/button')
+            if login_button:
+                login_button.click()
+            else:
+                logger.error("Botão de login não encontrado")
             time.sleep(3)
             logger.info("Login realizado com sucesso")
         except Exception as e:
