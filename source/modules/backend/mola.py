@@ -93,7 +93,7 @@ class Mola:
         Clica no botao para desconectar a sessao atual.
         Se o elemento nao for encontrado, ignora a excecao e continua a execucao.
         """
-        time.sleep(3)
+        time.sleep(5)
         try:
             logger.info("Desconectando sessao")
             element = WebDriverWait(self.driver, 10).until(
@@ -130,9 +130,11 @@ class Mola:
             self.driver.find_element('xpath','//*[@id="workspacePlatformId"]').send_keys('ATIVO')
             self.driver.find_element('xpath','//*[@id="workspacePlatformId"]').send_keys(Keys.ENTER)
             self.driver.find_element('xpath','//*[@id="phone"]').send_keys(number)
-            self.driver.find_element('xpath','/html/body/div[6]/div/div[2]/div/div[2]/div[2]/div/form/div[4]/div/div/div/div/div/div/div/div/form/textarea').send_keys(f'Olá {name} tudo bem?\n\n {self.message}')
-            self.driver.find_element('xpath','/html/body/div[6]/div/div[2]/div/div[2]/div[3]/div/button').click()
+            self.driver.find_element('xpath',"//textarea[@placeholder='Shift + Enter para nova linha. ']").send_keys(f'Olá {name} tudo bem?\n\n {self.message}')
+            self.driver.find_element('xpath',"//button[@class='ant-btn ant-btn-primary']").click()
             time.sleep(3)
+            
+            
             
             self.status = pd.concat([self.status, pd.DataFrame({'Nome': [name], 'Telefone': [number], 'Status': ['Sucesso']})], ignore_index=True)
             logger.info(f'Mensagem enviada para {name} com sucesso')
