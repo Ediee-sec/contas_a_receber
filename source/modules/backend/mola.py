@@ -10,6 +10,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.common.exceptions import NoSuchElementException
 import time
 import configparser
@@ -47,6 +49,7 @@ class Mola:
         self.options.add_argument('--no-sandbox')
         self.options.add_argument('--disable-gpu')
         self.options.add_argument('--disable-notifications')
+        self.options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
         self.driver = None
         self.portal = 'https://mola.kinbox.com.br/user/login'
         
@@ -77,7 +80,8 @@ class Mola:
         Clica no botao de login.
         """
         try:
-            self.driver = webdriver.Chrome(options=self.options)
+            logger.info("Realizando login na plataforma Mola")
+            self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=self.options)
             self.driver.get(self.portal)
             time.sleep(3)
             self.driver.find_element('xpath','//*[@id="email"]').send_keys(self.username)
@@ -86,7 +90,7 @@ class Mola:
             time.sleep(3)
             logger.info("Login realizado com sucesso")
         except Exception as e:
-            raise print(e)
+            logger.error(f"Erro ao realizar login: {e}")
     
     def disconnect_session(self):
         """
