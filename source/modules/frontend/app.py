@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_file
 from pathlib import Path
 import sys
 sys.path.append(str(Path(__file__).resolve().parents[3]))
@@ -70,7 +70,11 @@ def upload():
             pass
         raise e
     
-    
+@app.route("/screenshot")
+def screenshot():
+    screenshot_path = "/tmp/screenshot.png"
+    return send_file(screenshot_path, mimetype='image/png')
+       
 @app.route('/status/<task_id>')
 def get_status(task_id):
     status = task_status.get(task_id, {'status': 'not_found'})
