@@ -97,7 +97,7 @@ class Mola:
         try:
             logger.info("Desconectando sessao")
             element = WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located((By.XPATH, '/html/body/div[3]/div/div[2]/div/div[2]/div/div/div[2]/div/button'))
+                EC.presence_of_element_located((By.XPATH, "//button[@class='ant-btn ant-btn-default']"))
             )
             element.click()
             
