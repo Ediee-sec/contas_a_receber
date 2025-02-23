@@ -78,7 +78,6 @@ class Mola:
             self.driver = webdriver.Chrome(options=self.options)
             self.driver.get(self.portal)
             time.sleep(6)
-            logger.info(f'{self.username}, {self.password}')
             self.driver.find_element('xpath','//*[@id="email"]').send_keys(self.username)
             self.driver.find_element('xpath','//*[@id="password"]').send_keys(self.password)
             self.driver.find_element('xpath','//*[@id="root"]/div/div[2]/form/div[3]/button').click()
@@ -125,8 +124,8 @@ class Mola:
         try:
             time.sleep(3)
             logger.info(f"Enviando mensagem para {number}")
-            screenshot_path = "/tmp/screenshot.png" 
-            self.driver.save_screenshot(screenshot_path)
+            # screenshot_path = "/tmp/screenshot.png" 
+            # self.driver.save_screenshot(screenshot_path)
             self.driver.find_element('xpath','//*[@id="root"]/div/div[1]/div/div[2]/div/div[1]/div[1]/div/div[1]/div/div/div[2]/button').click()
             time.sleep(2)
             self.driver.find_element('xpath','//*[@id="workspacePlatformId"]').send_keys('ATIVO')
@@ -170,11 +169,16 @@ class Mola:
             self.login()
             self.disconnect_session()
             self.scroll_all_contacts()
-            Mail(self.status, self.email).send_mail()
+            try:
+                Mail(self.status, self.email).send_mail()
+                logger.info('Email enviado com sucesso')
+            except Exception as e:
+                logger.error(f'Erro ao enviar email: {e}')
         except Exception as e:
-            print(e)
+            logger.error(f'Erro ao executar o fluxo: {e}')
         finally:
             self.driver.close()
+            logger.info('Driver fechado com sucesso')
 
         
 # job = Mola('C:\\Users\\emers\\OneDrive\\Documentos\\15.xlsx', 'Mensagem de teste', 'emersonrox8@gmail.com')

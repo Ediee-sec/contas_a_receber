@@ -5,27 +5,24 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from pathlib import Path
 import os
+import logging
+
+logging.basicConfig(level=logging.INFO,
+                   format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 
 class Mail:
     def __init__(self, df, to):
         self.df = df
         self.to = to
-        self.config = configparser.ConfigParser()
-        
-        # Para excutar localmente
-        # self.config.read(os.path.join(Path(__file__).resolve().parents[4], 'config\\access.ini'))
-        # self.email = self.config['gmail']['email']
-        # self.password = self.config['gmail']['key']
-        # self.server = smtplib.SMTP(self.config['gmail']['server'], self.config['gmail']['port'])
-        
-        # Para executar no docker
         self.email = os.getenv('EMAIL')
         self.password = os.getenv('KEY')
         self.server = smtplib.SMTP(os.getenv('SERVER'), os.getenv('PORT'))
         self.subject = 'Resultado do envio de menssagens no Mola'
     
     def create_template(self):
+        logger.info('Criando template do email')
         df = self.df
         
         def style_status(status):
