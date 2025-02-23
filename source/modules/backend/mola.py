@@ -107,8 +107,6 @@ class Mola:
             )
             element.click()
             time.sleep(3)
-            screenshot_path = "/tmp/screenshot.png" 
-            self.driver.save_screenshot(screenshot_path)
             logger.info("Sessao desconectada com sucesso")
         except TimeoutException:
             logger.error("Elemento nao encontrado")
@@ -122,6 +120,8 @@ class Mola:
         Preenche o campo de telefone com o numero especificado.
         Preenche o campo de mensagem com um texto padrao, incluindo o nome do contato.
         """
+        screenshot_path = "/tmp/screenshot.png" 
+        self.driver.save_screenshot(screenshot_path)
         try:
             logger.info(f"Enviando mensagem para {number}")
             self.driver.find_element('xpath','//*[@id="root"]/div/div[1]/div/div[2]/div/div[1]/div[1]/div/div[1]/div/div/div[2]/button').click()
