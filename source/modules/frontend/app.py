@@ -20,13 +20,16 @@ def process_file(task_id, file_path, message, email, status_queue):
         
         with open(file_path, 'rb') as file:
             Mola(file=file, message=message, email=email).flow()
+            print('Processamento concluído')
         
         task_status[task_id] = {'status': 'completed', 'progress': 100}
     except Exception as e:
         task_status[task_id] = {'status': 'error', 'message': str(e)}
+        print(e)
     finally:
         try:
             os.remove(file_path)
+            print('Arquivo temporário removido')
         except:
             pass
     
@@ -41,6 +44,8 @@ def upload():
     file = request.files['file']
     email = request.form.get('email')
     message = request.form.get('message')
+    
+    print(email, message)
     
     task_id = str(time.time())
     
