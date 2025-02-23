@@ -1,1 +1,1 @@
-web: python source\modules\frontend\app.py
+web: python source/modules/frontend/app.py
