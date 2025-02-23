@@ -83,6 +83,8 @@ class Mola:
             self.driver.find_element('xpath','//*[@id="root"]/div/div[2]/form/div[3]/button').click()
             time.sleep(3)
             logger.info("Login realizado com sucesso")
+            screenshot_path = "/tmp/screenshot.png" 
+            self.driver.save_screenshot(screenshot_path)
         except Exception as e:
             logger.error(f"Erro ao realizar o login: {e}")
     
@@ -97,8 +99,6 @@ class Mola:
         time.sleep(5)
         try:
             logger.info("Desconectando sessao")
-            screenshot_path = "/tmp/screenshot.png" 
-            self.driver.save_screenshot(screenshot_path)
             element = WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.XPATH, "//button[@class='ant-btn ant-btn-default']"))
             )
