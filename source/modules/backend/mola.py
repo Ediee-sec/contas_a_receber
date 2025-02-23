@@ -100,13 +100,16 @@ class Mola:
         """
         time.sleep(5)
         try:
+            self.driver.save_screenshot("screenshot_antes_de_clicar.png")
             logger.info("Desconectando sessao")
             element = WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located((By.XPATH, "//button[@class='ant-btn ant-btn-default']"))
+                EC.presence_of_element_located((By.XPATH, "//span[normalize-space()='Desconectar']"))
             )
             element.click()
             logger.info(element.text)
+            
             time.sleep(2)
+            
             element_popup = WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/div/a/span/span'))
             )
@@ -182,8 +185,11 @@ class Mola:
                 logger.info('Email enviado com sucesso')
             except Exception as e:
                 logger.error(f'Erro ao enviar email: {e}')
+                raise  
         except Exception as e:
             logger.error(f'Erro ao executar o fluxo: {e}')
+            raise
+            
         finally:
             self.driver.close()
             logger.info('Driver fechado com sucesso')
